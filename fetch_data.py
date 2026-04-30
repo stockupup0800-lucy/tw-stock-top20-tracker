@@ -30,15 +30,52 @@ def fetch_twse(date_str, retries=3, wait=600):
                 for i, row in enumerate(data["data"][:20]):
                     stocks.append({
                         "rank": i + 1,
-                        "code": row[0].strip(),
-                        "name": row[1].strip(),
-                        "price": row[2].strip(),
-                        "change": row[3].strip(),
-                        "turnover": row[4].strip(),
+                        "code": str(row[0]).strip(),
+                        "name": str(row[1]).strip(),
+                        "price": str(row[2]).strip(),
+                        "change": str(row[3]).strip(),
+                        "turnover": str(row[4]).strip(),
                     })
                 return stocks, data.get("date", date_str)
             else:
                 print(f"第 {attempt+1} 次嘗試：上市資料尚未更新，{wait//60} 分鐘後重試...")
+                if attempt < retries - 1:
+                    time.sleep(wait)
+        except Exception as e:
+            print(f"第 {attempt+1} 次嘗試失敗：{e}")
+            if attempt < retries - 1:
+                time.sleep(wait)
+    return None, None
+
+def fetch_tpex(date_str, retries=3, wait=600):
+    y = int(date_str[:4]) - 1911
+    m = date_str[4:6]
+    d = date_str[6:8]
+    # 改用 date 參數格式
+    url = f"https://www.tpex.org.tw/web/stock/aftertrading/top20_turnover/turnover_result.php?l=zh-tw&o=json&d={y}/{m}/{d}&_={int(time.time()*1000)}"
+    for attempt in range(retries):
+        try:
+            headers = {**HEADERS, "Referer": "https://www.tpex.org.tw/"}
+            r = requests.get(url, headers=headers, timeout=30)
+            r.raise_for_status()
+            text = r.text.strip()
+            if not text:
+                raise ValueError("空回應")
+            data = json.loads(text)
+            if data.get("aaData"):
+                stocks = []
+                for i, row in enumerate(data["aaData"][:20]):
+                    stocks.append({
+                        "rank": i + 1,
+                        "code": str(row[0]).strip(),
+                        "name": str(row[1]).strip(),
+                        "price": str(row[2]).strip() if len(row) > 2 else "--",
+                        "change": str(row[3]).strip() if len(row) > 3 else "--",
+                        "turnover": str(row[4]).strip() if len(row) > 4 else "--",
+                    })
+                return stocks, date_str
+            else:
+                print(f"第 {attempt+1} 次嘗試：上櫃資料尚未更新，{wait//60} 分鐘後重試...")
                 if attempt < retries - 1:
                     time.sleep(wait)
         except Exception as e:
