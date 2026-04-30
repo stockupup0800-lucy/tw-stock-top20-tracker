@@ -2,13 +2,14 @@ name: 每日抓取台股成交值排行
 
 on:
   schedule:
-    # 台灣時間下午 3:00 = UTC 07:00
-    - cron: '0 7 * * 1-5'
-  workflow_dispatch:  # 允許手動執行
+    # 台灣時間 15:30 = UTC 07:30
+    - cron: '30 7 * * 1-5'
+  workflow_dispatch:
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
 
