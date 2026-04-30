@@ -28,14 +28,25 @@ def fetch_twse(date_str, retries=3, wait=600):
             if data.get("stat") == "OK" and data.get("data"):
                 stocks = []
                 for i, row in enumerate(data["data"][:20]):
-                    stocks.append({
-                        "rank": i + 1,
-                        "code": str(row[0]).strip(),
-                        "name": str(row[1]).strip(),
-                        "price": str(row[2]).strip(),
-                        "change": str(row[3]).strip(),
-                        "turnover": str(row[4]).strip(),
-                    })
+                   # 新的（正確欄位）
+change_sign = str(row[9]).strip() if len(row) > 9 else ""
+change_val = str(row[10]).strip() if len(row) > 10 else "--"
+# 漲跌符號可能含 HTML tag，清理一下
+if "+" in change_sign or "green" in change_sign.lower():
+    change_display = f"+{change_val}"
+elif "-" in change_sign or "red" in change_sign.lower():
+    change_display = f"-{change_val}"
+else:
+    change_display = change_val
+
+stocks.append({
+    "rank": i + 1,
+    "code": str(row[0]).strip(),
+    "name": str(row[1]).strip(),
+    "price": str(row[8]).strip() if len(row) > 8 else "--",
+    "change": change_display,
+    "turnover": str(row[4]).strip(),
+})
                 return stocks, data.get("date", date_str)
             else:
                 print(f"第 {attempt+1} 次嘗試：上市資料尚未更新，{wait//60} 分鐘後重試...")
