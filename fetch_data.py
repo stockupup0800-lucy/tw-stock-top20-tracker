@@ -18,46 +18,66 @@ def get_today_str():
 def is_weekday():
     return date.today().weekday() < 5
 
-def fetch_twse(date_str):
+def fetch_twse(date_str, retries=3, wait=600):
     url = f"https://www.twse.com.tw/exchangeReport/MI_INDEX20?response=json&date={date_str}&_={int(time.time()*1000)}"
-    r = requests.get(url, headers=HEADERS, timeout=30)
-    r.raise_for_status()
-    data = r.json()
-    if data.get("stat") != "OK" or not data.get("data"):
-        return None, None
-    stocks = []
-    for i, row in enumerate(data["data"][:20]):
-        stocks.append({
-            "rank": i + 1,
-            "code": row[0].strip(),
-            "name": row[1].strip(),
-            "price": row[2].strip(),
-            "change": row[3].strip(),
-            "turnover": row[4].strip(),
-        })
-    return stocks, data.get("date", date_str)
+    for attempt in range(retries):
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=30)
+            r.raise_for_status()
+            data = r.json()
+            if data.get("stat") == "OK" and data.get("data"):
+                stocks = []
+                for i, row in enumerate(data["data"][:20]):
+                    stocks.append({
+                        "rank": i + 1,
+                        "code": row[0].strip(),
+                        "name": row[1].strip(),
+                        "price": row[2].strip(),
+                        "change": row[3].strip(),
+                        "turnover": row[4].strip(),
+                    })
+                return stocks, data.get("date", date_str)
+            else:
+                print(f"第 {attempt+1} 次嘗試：上市資料尚未更新，{wait//60} 分鐘後重試...")
+                if attempt < retries - 1:
+                    time.sleep(wait)
+        except Exception as e:
+            print(f"第 {attempt+1} 次嘗試失敗：{e}")
+            if attempt < retries - 1:
+                time.sleep(wait)
+    return None, None
 
-def fetch_tpex(date_str):
+def fetch_tpex(date_str, retries=3, wait=600):
     y = int(date_str[:4]) - 1911
     m = date_str[4:6]
     d = date_str[6:8]
     url = f"https://www.tpex.org.tw/web/stock/aftertrading/top20_turnover/turnover_result.php?l=zh-tw&o=json&d={y}/{m}/{d}&_={int(time.time()*1000)}"
-    r = requests.get(url, headers={**HEADERS, "Referer": "https://www.tpex.org.tw/"}, timeout=30)
-    r.raise_for_status()
-    data = r.json()
-    if not data.get("aaData"):
-        return None, None
-    stocks = []
-    for i, row in enumerate(data["aaData"][:20]):
-        stocks.append({
-            "rank": i + 1,
-            "code": row[0].strip(),
-            "name": row[1].strip(),
-            "price": row[2].strip() if len(row) > 2 else "--",
-            "change": row[3].strip() if len(row) > 3 else "--",
-            "turnover": row[4].strip() if len(row) > 4 else "--",
-        })
-    return stocks, date_str
+    for attempt in range(retries):
+        try:
+            r = requests.get(url, headers={**HEADERS, "Referer": "https://www.tpex.org.tw/"}, timeout=30)
+            r.raise_for_status()
+            data = r.json()
+            if data.get("aaData"):
+                stocks = []
+                for i, row in enumerate(data["aaData"][:20]):
+                    stocks.append({
+                        "rank": i + 1,
+                        "code": row[0].strip(),
+                        "name": row[1].strip(),
+                        "price": row[2].strip() if len(row) > 2 else "--",
+                        "change": row[3].strip() if len(row) > 3 else "--",
+                        "turnover": row[4].strip() if len(row) > 4 else "--",
+                    })
+                return stocks, date_str
+            else:
+                print(f"第 {attempt+1} 次嘗試：上櫃資料尚未更新，{wait//60} 分鐘後重試...")
+                if attempt < retries - 1:
+                    time.sleep(wait)
+        except Exception as e:
+            print(f"第 {attempt+1} 次嘗試失敗：{e}")
+            if attempt < retries - 1:
+                time.sleep(wait)
+    return None, None
 
 def load_existing():
     if os.path.exists(DATA_FILE):
@@ -108,7 +128,7 @@ def main():
         for s in twse_stocks:
             s["streak"] = twse_streaks.get(s["code"], 1)
     else:
-        print("上市：無資料")
+        print("上市：3 次都失敗，今日無資料")
 
     tpex_stocks, tpex_date = fetch_tpex(today)
     if tpex_stocks:
@@ -123,7 +143,7 @@ def main():
         for s in tpex_stocks:
             s["streak"] = tpex_streaks.get(s["code"], 1)
     else:
-        print("上櫃：無資料")
+        print("上櫃：3 次都失敗，今日無資料")
 
     all_dates = sorted(history.keys())
     if len(all_dates) > 365:
