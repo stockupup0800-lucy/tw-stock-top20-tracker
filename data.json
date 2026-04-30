@@ -1,7 +1,397 @@
 {
-  "last_updated": "2026-04-30 09:49:10",
+  "last_updated": "2026-04-30 11:31:14",
   "today": "20260430",
-  "twse": [],
+  "twse": [
+    {
+      "rank": 1,
+      "code": "1",
+      "name": "00981A",
+      "price": "主動統一台股增長",
+      "change": "403,590,807",
+      "turnover": "96,524",
+      "streak": 1
+    },
+    {
+      "rank": 2,
+      "code": "2",
+      "name": "2303",
+      "price": "聯電",
+      "change": "333,288,108",
+      "turnover": "143,099",
+      "streak": 1
+    },
+    {
+      "rank": 3,
+      "code": "3",
+      "name": "2337",
+      "price": "旺宏",
+      "change": "290,565,132",
+      "turnover": "213,473",
+      "streak": 1
+    },
+    {
+      "rank": 4,
+      "code": "4",
+      "name": "00631L",
+      "price": "元大台灣50正2",
+      "change": "172,580,528",
+      "turnover": "51,347",
+      "streak": 1
+    },
+    {
+      "rank": 5,
+      "code": "5",
+      "name": "009816",
+      "price": "凱基台灣TOP50",
+      "change": "153,826,617",
+      "turnover": "34,848",
+      "streak": 1
+    },
+    {
+      "rank": 6,
+      "code": "6",
+      "name": "1802",
+      "price": "台玻",
+      "change": "126,951,852",
+      "turnover": "65,926",
+      "streak": 1
+    },
+    {
+      "rank": 7,
+      "code": "7",
+      "name": "2408",
+      "price": "南亞科",
+      "change": "125,666,192",
+      "turnover": "143,527",
+      "streak": 1
+    },
+    {
+      "rank": 8,
+      "code": "8",
+      "name": "00992A",
+      "price": "主動群益科技創新",
+      "change": "119,956,357",
+      "turnover": "21,973",
+      "streak": 1
+    },
+    {
+      "rank": 9,
+      "code": "9",
+      "name": "2344",
+      "price": "華邦電",
+      "change": "116,065,273",
+      "turnover": "70,768",
+      "streak": 1
+    },
+    {
+      "rank": 10,
+      "code": "10",
+      "name": "00673R",
+      "price": "期元大S&P原油反1",
+      "change": "113,575,221",
+      "turnover": "14,663",
+      "streak": 1
+    },
+    {
+      "rank": 11,
+      "code": "11",
+      "name": "2489",
+      "price": "瑞軒",
+      "change": "108,916,868",
+      "turnover": "56,860",
+      "streak": 1
+    },
+    {
+      "rank": 12,
+      "code": "12",
+      "name": "2409",
+      "price": "友達",
+      "change": "107,364,483",
+      "turnover": "28,807",
+      "streak": 1
+    },
+    {
+      "rank": 13,
+      "code": "13",
+      "name": "00632R",
+      "price": "元大台灣50反1",
+      "change": "104,448,274",
+      "turnover": "8,706",
+      "streak": 1
+    },
+    {
+      "rank": 14,
+      "code": "14",
+      "name": "00919",
+      "price": "群益台灣精選高息",
+      "change": "104,089,262",
+      "turnover": "26,017",
+      "streak": 1
+    },
+    {
+      "rank": 15,
+      "code": "15",
+      "name": "3481",
+      "price": "群創",
+      "change": "103,739,940",
+      "turnover": "30,424",
+      "streak": 1
+    },
+    {
+      "rank": 16,
+      "code": "16",
+      "name": "1303",
+      "price": "南亞",
+      "change": "101,531,762",
+      "turnover": "63,394",
+      "streak": 1
+    },
+    {
+      "rank": 17,
+      "code": "17",
+      "name": "6770",
+      "price": "力積電",
+      "change": "94,428,431",
+      "turnover": "46,151",
+      "streak": 1
+    },
+    {
+      "rank": 18,
+      "code": "18",
+      "name": "0050",
+      "price": "元大台灣50",
+      "change": "89,209,769",
+      "turnover": "125,264",
+      "streak": 1
+    },
+    {
+      "rank": 19,
+      "code": "19",
+      "name": "00991A",
+      "price": "主動復華未來50",
+      "change": "81,891,576",
+      "turnover": "17,337",
+      "streak": 1
+    },
+    {
+      "rank": 20,
+      "code": "20",
+      "name": "2892",
+      "price": "第一金",
+      "change": "79,928,025",
+      "turnover": "12,688",
+      "streak": 1
+    }
+  ],
   "tpex": [],
-  "history": {}
+  "history": {
+    "20260430": {
+      "twse": {
+        "codes": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20"
+        ],
+        "stocks": [
+          {
+            "rank": 1,
+            "code": "1",
+            "name": "00981A",
+            "price": "主動統一台股增長",
+            "change": "403,590,807",
+            "turnover": "96,524",
+            "streak": 1
+          },
+          {
+            "rank": 2,
+            "code": "2",
+            "name": "2303",
+            "price": "聯電",
+            "change": "333,288,108",
+            "turnover": "143,099",
+            "streak": 1
+          },
+          {
+            "rank": 3,
+            "code": "3",
+            "name": "2337",
+            "price": "旺宏",
+            "change": "290,565,132",
+            "turnover": "213,473",
+            "streak": 1
+          },
+          {
+            "rank": 4,
+            "code": "4",
+            "name": "00631L",
+            "price": "元大台灣50正2",
+            "change": "172,580,528",
+            "turnover": "51,347",
+            "streak": 1
+          },
+          {
+            "rank": 5,
+            "code": "5",
+            "name": "009816",
+            "price": "凱基台灣TOP50",
+            "change": "153,826,617",
+            "turnover": "34,848",
+            "streak": 1
+          },
+          {
+            "rank": 6,
+            "code": "6",
+            "name": "1802",
+            "price": "台玻",
+            "change": "126,951,852",
+            "turnover": "65,926",
+            "streak": 1
+          },
+          {
+            "rank": 7,
+            "code": "7",
+            "name": "2408",
+            "price": "南亞科",
+            "change": "125,666,192",
+            "turnover": "143,527",
+            "streak": 1
+          },
+          {
+            "rank": 8,
+            "code": "8",
+            "name": "00992A",
+            "price": "主動群益科技創新",
+            "change": "119,956,357",
+            "turnover": "21,973",
+            "streak": 1
+          },
+          {
+            "rank": 9,
+            "code": "9",
+            "name": "2344",
+            "price": "華邦電",
+            "change": "116,065,273",
+            "turnover": "70,768",
+            "streak": 1
+          },
+          {
+            "rank": 10,
+            "code": "10",
+            "name": "00673R",
+            "price": "期元大S&P原油反1",
+            "change": "113,575,221",
+            "turnover": "14,663",
+            "streak": 1
+          },
+          {
+            "rank": 11,
+            "code": "11",
+            "name": "2489",
+            "price": "瑞軒",
+            "change": "108,916,868",
+            "turnover": "56,860",
+            "streak": 1
+          },
+          {
+            "rank": 12,
+            "code": "12",
+            "name": "2409",
+            "price": "友達",
+            "change": "107,364,483",
+            "turnover": "28,807",
+            "streak": 1
+          },
+          {
+            "rank": 13,
+            "code": "13",
+            "name": "00632R",
+            "price": "元大台灣50反1",
+            "change": "104,448,274",
+            "turnover": "8,706",
+            "streak": 1
+          },
+          {
+            "rank": 14,
+            "code": "14",
+            "name": "00919",
+            "price": "群益台灣精選高息",
+            "change": "104,089,262",
+            "turnover": "26,017",
+            "streak": 1
+          },
+          {
+            "rank": 15,
+            "code": "15",
+            "name": "3481",
+            "price": "群創",
+            "change": "103,739,940",
+            "turnover": "30,424",
+            "streak": 1
+          },
+          {
+            "rank": 16,
+            "code": "16",
+            "name": "1303",
+            "price": "南亞",
+            "change": "101,531,762",
+            "turnover": "63,394",
+            "streak": 1
+          },
+          {
+            "rank": 17,
+            "code": "17",
+            "name": "6770",
+            "price": "力積電",
+            "change": "94,428,431",
+            "turnover": "46,151",
+            "streak": 1
+          },
+          {
+            "rank": 18,
+            "code": "18",
+            "name": "0050",
+            "price": "元大台灣50",
+            "change": "89,209,769",
+            "turnover": "125,264",
+            "streak": 1
+          },
+          {
+            "rank": 19,
+            "code": "19",
+            "name": "00991A",
+            "price": "主動復華未來50",
+            "change": "81,891,576",
+            "turnover": "17,337",
+            "streak": 1
+          },
+          {
+            "rank": 20,
+            "code": "20",
+            "name": "2892",
+            "price": "第一金",
+            "change": "79,928,025",
+            "turnover": "12,688",
+            "streak": 1
+          }
+        ]
+      }
+    }
+  }
 }
