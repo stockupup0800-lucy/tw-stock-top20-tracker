@@ -19,15 +19,43 @@ def is_weekday():
     return date.today().weekday() < 5
 
 def fetch_twse(date_str, retries=3, wait=600):
-    url = f"https://www.twse.com.tw/exchangeReport/MI_INDEX20?response=json&date={date_str}&_={int(time.time()*1000)}"
+    url = f"https://www.twse.com.tw/exchangeReport/MI_INDEX?response=json&date={date_str}&type=ALLBUT0999&_={int(time.time()*1000)}"
     for attempt in range(retries):
         try:
             r = requests.get(url, headers=HEADERS, timeout=30)
             r.raise_for_status()
             data = r.json()
-            if data.get("stat") == "OK" and data.get("data"):
+            # 個股資料在 data9，欄位定義在 fields9
+            if data.get("stat") == "OK" and data.get("data9"):
+                raw = data["data9"]
+                # fields9: 證券代號[0] 證券名稱[1] 成交股數[2] 成交筆數[3] 成交金額[4]
+                #          開盤價[5] 最高價[6] 最低價[7] 收盤價[8] 漲跌(+/-)[9] 漲跌價差[10]
+
+                def parse_num(s):
+                    try:
+                        return int(str(s).replace(",", ""))
+                    except:
+                        return 0
+
+                def is_etf(code, name):
+                    # 排除ETF：代號開頭00，或名稱含ETF/基金/指數
+                    code = str(code).strip()
+                    name = str(name).strip()
+                    if code.startswith("00"):
+                        return True
+                    if any(k in name for k in ["ETF", "基金", "指數", "債券"]):
+                        return True
+                    return False
+
+                # 過濾ETF，只留個股
+                filtered = [row for row in raw if not is_etf(row[0], row[1])]
+
+                # 依成交金額排序，取前20
+                filtered.sort(key=lambda r: parse_num(r[4]), reverse=True)
+                top20 = filtered[:20]
+
                 stocks = []
-                for i, row in enumerate(data["data"][:20]):
+                for i, row in enumerate(top20):
                     change_sign = str(row[9]).strip() if len(row) > 9 else ""
                     change_val = str(row[10]).strip() if len(row) > 10 else "--"
                     if "+" in change_sign:
